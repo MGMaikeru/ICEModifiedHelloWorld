@@ -19,7 +19,7 @@ public class Client{
 
             while (true) { 
                 String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("bye")) break;
+                if (input.equalsIgnoreCase("exit")) break;
                 String message = username + "@" + hostname + ":" + input;
                 System.out.println(service.printString(message).value);
             }
