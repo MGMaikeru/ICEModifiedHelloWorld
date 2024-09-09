@@ -23,37 +23,41 @@ public class PrinterI implements Printer{
         String service = splitMessage[1];
 
         if (service.matches("\\d+")) {
+            time = System.currentTimeMillis();
             int number = Integer.parseInt(service);
             String fibSeries = fibonacci(number);
             String primeFactors = primeFactors(number);
             System.out.println(userHost + ": Fibonacci series for " + number + " is: " + fibSeries);
             result = "Prime factors for " + number + " is:" + primeFactors;
         } else if (service.startsWith("listifs")) {
-            //time = System.currentTimeMillis();
+            time = System.currentTimeMillis();
             String interfaces = listInterfaces();
             System.out.println(userHost + ": Network interfaces: " + interfaces);
             result = interfaces;
         } else if (service.startsWith("listports")) {
-            //time = System.currentTimeMillis();
+            time = System.currentTimeMillis();
             String[] parts = service.split(" ");
             if (parts.length > 1) {
                 String ipAddress = parts[1];
-                time = System.currentTimeMillis();
                 result = listPortsServices(ipAddress);
                 System.out.println(userHost + ": Open ports for " + ipAddress + ": " + result);
             } else {
                 result = "Error: No IP address provided.";
             }
         }else if(service.startsWith("!")){
-            String command = service.substring(1);
             time = System.currentTimeMillis();
+            String command = service.substring(1);
             result = executeCMD(command);
             System.out.println(userHost + ": Command execution result: " + result);
         } else {
             result = "Unknown command.";
             System.out.println(userHost + ": " + result);
         }
-        return new Response(0, result);
+        if (time == 0) {
+            return new Response(0, result);
+        }
+        long timetotal = System.currentTimeMillis() - time;
+        return new Response(timetotal, result);
     }
 
     public static String fibonacci(int number) {
@@ -117,7 +121,7 @@ public class PrinterI implements Printer{
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                result.append(line).append("  ");
+                result.append(line).append("\n");
             }
             process.waitFor();
         } catch (Exception e) {
