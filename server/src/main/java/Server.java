@@ -5,6 +5,9 @@ import com.zeroc.Ice.Object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Collections;
 
 public class Server{
     public static void main(String[] args) {
@@ -43,5 +46,18 @@ public class Server{
         }
         return primes.toString();
     }
-    
+
+    public static String listInterfaces() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface netint : interfaces) {
+                sb.append(String.format("Display name: %s, Name: %s%n",
+                        netint.getDisplayName(), netint.getName()));
+            }
+        } catch (SocketException e) {
+            sb.append("Error listing network interfaces: ").append(e.getMessage());
+        }
+        return sb.toString();
+    }
 }

@@ -14,7 +14,10 @@ public class PrinterI implements Printer{
         String userHost = splitMessage[0];
         String service = splitMessage[1];
 
-        if (service.matches("\\d+")) {
+        if (service.trim().equalsIgnoreCase("listifs")) {
+            result = Server.listInterfaces();
+            System.out.println(userHost + ":\n" + result);
+        } else if (service.matches("\\d+")) {
             int number = Integer.parseInt(service);
             String fibSeries = Server.fibonacci(number);
             String primeFactors = Server.primeFactors(number);
