@@ -21,8 +21,7 @@ public class Client{
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("bye")) break;
                 String message = username + "@" + hostname + ":" + input;
-                service.printString(message);
-                System.out.println("Se mandó");
+                System.out.println(service.printString(message).value);
             }
         }catch(Exception e){
             e.printStackTrace();
