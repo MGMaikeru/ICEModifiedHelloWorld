@@ -20,9 +20,10 @@ public class Client{
             String hostname = InetAddress.getLocalHost().getHostName();
 
             while (true) {
+                printMenu();
+                System.out.print("Ingrese el comando (o 'exit' para salir): ");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("exit")) break;
-                if(input.startsWith("test")) requeststest(service);
                 String message = username + "@" + hostname + ":" + input;
                 long time= System.currentTimeMillis();
                 Response response = service.printString(message);
@@ -38,12 +39,10 @@ public class Client{
 
     private static void printMenu() {
         System.out.println("\n- Menú -");
-        System.out.println("1. Calcular serie de Fibonacci y factores primos");
-        System.out.println("2. Listar interfaces de red");
-        System.out.println("3. Listar puertos y servicios de una dirección IPv4");
-        System.out.println("4. Ejecutar comando en el servidor");
-        System.out.println("Escriba 'exit' para salir");
-        System.out.print("Elija una opción: ");
+        System.out.println("1. Calcular serie de Fibonacci y factores primos (Número entero positivo)");
+        System.out.println("2. Listar interfaces de red (Comando 'listifs')");
+        System.out.println("3. Listar puertos y servicios de una dirección IPv4 (Comando 'listports' seguido de la IP)");
+        System.out.println("4. Ejecutar comando en el servidor (Iniciando con '!')");
     }
 
     private static void requeststest(PrinterPrx server) throws UnknownHostException {
