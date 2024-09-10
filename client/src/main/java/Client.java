@@ -23,6 +23,7 @@ public class Client{
                 printMenu();
                 System.out.print("Ingrese el comando (o 'exit' para salir): ");
                 String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("testQA")) requeststest(service);
                 if (input.equalsIgnoreCase("exit")) break;
                 String message = username + "@" + hostname + ":" + input;
                 long time= System.currentTimeMillis();

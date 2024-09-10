@@ -1,1 +1,2 @@
 Printer.Endpoints=tcp -p 8081
+Ice.Default.Host= 10.147.20.112
